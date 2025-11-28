@@ -1,41 +1,172 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const baseFont =
   "'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
 
 export default function NavBar() {
-  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  // Estados para los menús
+  const [institucionOpen, setInstitucionOpen] = useState(false);
+  const [accesoOpen, setAccesoOpen] = useState(false);
+  const [contactoOpen, setContactoOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Función para cerrar todos los menús
+  const closeAllMenus = () => {
+    setInstitucionOpen(false);
+    setAccesoOpen(false);
+    setContactoOpen(false);
+  };
 
   return (
-    <nav style={styles.nav}>
-      <h2 style={styles.logo}>AulaPlus</h2>
+    <div style={styles.navbar}
+      onMouseLeave={closeAllMenus}
+    >
+      <nav style={{
+        ...styles.nav,
+        padding: scrolled ? "12px 40px" : "20px 40px",
+        boxShadow: scrolled ? "0 4px 20px rgba(0,0,0,0.15)" : "0 2px 10px rgba(0,0,0,0.1)",
+        transition: "all 0.3s ease",
+      }}>
+        <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{
+            fontSize: scrolled ? 32 : 36,
+            transition: "font-size 0.3s ease",
+          }}>🎓</div>
+          <h2 style={{
+            ...styles.logo,
+            fontSize: scrolled ? 24 : 28,
+            transition: "font-size 0.3s ease",
+          }}>
+            AulaPlus
+          </h2>
+        </Link>
 
-      <ul style={styles.menu}>
-        <li><Link to="/" style={styles.link}>Inicio</Link></li>
-        <li><Link to="/cursos" style={styles.link}>Cursos</Link></li>
-        <li><Link to="/contact" style={styles.link}>Contacto</Link></li>
+        <ul style={styles.menu}>
+          <li>
+            <Link to="/" style={styles.link}>
+              🏠 Inicio
+            </Link>
+          </li>
 
-        {/* ACCESOS DROPDOWN */}
-        <li style={{ position: "relative" }}>
-          <span
-            onClick={() => setOpen(!open)}
-            style={styles.link}   // mismo estilo que los otros
+          {/* INSTITUCIÓN DROPDOWN */}
+          <li
+            style={styles.menuItem}
+            onMouseEnter={() => {
+              setInstitucionOpen(true);
+              setAccesoOpen(false);
+              setContactoOpen(false);
+            }}
           >
-            Accesos ▾
-          </span>
+            <span style={styles.link}>
+              🏫 Institución ▾
+            </span>
+            {institucionOpen && (
+              <div
+                style={styles.dropdown}
+              >
+                <div style={styles.dropHeader}>Nuestra Institución</div>
+                <Link to="/sobre-nosotros" style={styles.dropItem}>
+                  <span style={styles.dropIcon}>📖</span>
+                  Sobre Nosotros
+                </Link>
+                <Link to="/mision-vision" style={styles.dropItem}>
+                  <span style={styles.dropIcon}>🎯</span>
+                  Misión y Visión
+                </Link>
+                <Link to="/infraestructura" style={styles.dropItem}>
+                  <span style={styles.dropIcon}>🏛️</span>
+                  Infraestructura
+                </Link>
+                <Link to="/noticias-eventos" style={styles.dropItem}>
+                  <span style={styles.dropIcon}>📰</span>
+                  Noticias y Eventos
+                </Link>
+                <Link to="/funcionarios" style={styles.dropItem}>
+                  <span style={styles.dropIcon}>👔</span>
+                  Funcionarios
+                </Link>
+                <Link to="/cursos" style={styles.dropItem}>
+                  <span style={styles.dropIcon}>📚</span>
+                  Cursos
+                </Link>
+              </div>
+            )}
+          </li>
 
-          {open && (
-            <div style={styles.dropdown}>
-              <Link to="/estudiantes" style={styles.dropItem}>Estudiantes</Link>
-              <Link to="/apoderados" style={styles.dropItem}>Apoderados</Link>
-              <Link to="/profesores" style={styles.dropItem}>Profesores</Link>
-              <Link to="/admision" style={styles.dropItem}>Admisión</Link>
-            </div>
-          )}
-        </li>
-      </ul>
-    </nav>
+          {/* ACCESOS DROPDOWN */}
+          <li
+            style={styles.menuItem}
+            onMouseEnter={() => {
+              setInstitucionOpen(false);
+              setAccesoOpen(true);
+              setContactoOpen(false);
+            }}
+          >
+            <span style={styles.link}>
+              🔐 Accesos ▾
+            </span>
+            {accesoOpen && (
+              <div
+                style={styles.dropdown}
+              >
+                <div style={styles.dropHeader}>Plataformas de Acceso</div>
+                <Link to="/estudiantes" style={styles.dropItem}>
+                  <span style={styles.dropIcon}>👨‍🎓</span>
+                  Estudiantes
+                </Link>
+                <Link to="/apoderados" style={styles.dropItem}>
+                  <span style={styles.dropIcon}>👪</span>
+                  Apoderados
+                </Link>
+                <Link to="/profesores" style={styles.dropItem}>
+                  <span style={styles.dropIcon}>👨‍🏫</span>
+                  Profesores
+                </Link>
+              </div>
+            )}
+          </li>
+
+          {/* CONTACTO DROPDOWN */}
+          <li
+            style={styles.menuItem}
+            onMouseEnter={() => {
+              setInstitucionOpen(false);
+              setAccesoOpen(false);
+              setContactoOpen(true);
+            }}
+          >
+            <span style={styles.link}>
+              📧 Contacto ▾
+            </span>
+            {contactoOpen && (
+              <div
+                style={styles.dropdown}
+              >
+                <div style={styles.dropHeader}>Contacto y Admisión</div>
+                <Link to="/contact" style={styles.dropItem}>
+                  <span style={styles.dropIcon}>📧</span>
+                  Contacto
+                </Link>
+                <div style={styles.dropDivider}></div>
+                <Link to="/admision" style={{...styles.dropItem, background: 'linear-gradient(135deg, #004aad 0%, #0066cc 100%)', color: '#fff'}}>
+                  <span style={styles.dropIcon}>📝</span>
+                  Proceso de Admisión
+                </Link>
+              </div>
+            )}
+          </li>
+        </ul>
+      </nav>
+    </div>
   );
 }
 
@@ -44,10 +175,10 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "25px 40px",
-    background: "#004aad",
+    background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)",
     fontFamily: baseFont,
-    position: "relative",
+    position: "sticky",
+    top: 0,
     zIndex: 9999,
   },
 
@@ -55,16 +186,20 @@ const styles = {
     color: "#fff",
     margin: 0,
     fontWeight: 800,
-    fontSize: 28,
+    cursor: "pointer",
   },
 
   menu: {
     listStyle: "none",
     display: "flex",
     alignItems: "center",
-    gap: 28,
+    gap: 32,
     margin: 0,
     padding: 0,
+  },
+
+  menuItem: {
+    position: "relative",
   },
 
   link: {
@@ -72,30 +207,62 @@ const styles = {
     textDecoration: "none",
     fontWeight: 600,
     cursor: "pointer",
+    transition: "all 0.2s",
+    padding: "8px 12px",
+    borderRadius: 8,
+    display: "inline-block",
   },
 
   dropdown: {
     position: "absolute",
-    top: "35px",
+    top: "calc(100% + 12px)",
     right: 0,
     background: "#ffffff",
-    padding: "14px",
-    width: "220px",
-    display: "grid",
-    rowGap: "8px",
-    borderRadius: 10,
+    padding: "8px",
+    minWidth: "260px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "4px",
+    borderRadius: 12,
+    boxShadow: "0 12px 32px rgba(0,0,0,0.18)",
+    zIndex: 10000,
+    animation: "slideDown 0.3s ease",
+  },
 
-    boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
-    zIndex: 9999,
+  dropHeader: {
+    padding: "12px 14px 8px",
+    fontSize: 11,
+    fontWeight: 700,
+    textTransform: "uppercase",
+    color: "#999",
+    letterSpacing: "0.5px",
   },
 
   dropItem: {
-    padding: "10px 10px",
-    borderRadius: 6,
+    padding: "12px 14px",
+    borderRadius: 8,
     fontWeight: 600,
-    display: "block",
+    display: "flex",
+    alignItems: "center",
+    gap: 12,
     textDecoration: "none",
-    color: "#004aad",
-    background: "#f4f4f4",
+    color: "#1a1a2e",
+    background: "transparent",
+    transition: "all 0.2s",
+    cursor: "pointer",
+  },
+
+  dropIcon: {
+    fontSize: 18,
+  },
+
+  dropDivider: {
+    height: 1,
+    background: "#e0e0e0",
+    margin: "8px 0",
+  },
+
+  navbar: {
+    position: "relative",
   },
 };

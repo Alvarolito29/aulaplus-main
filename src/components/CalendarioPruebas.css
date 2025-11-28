@@ -1,0 +1,94 @@
+.calendario-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.calendario-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.calendario-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.calendario-dia {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  min-height: 100px;
+  background-color: #fff;
+  transition: box-shadow 0.3s ease;
+}
+
+.calendario-dia:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dia-numero {
+  display: block;
+  font-weight: bold;
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.evento {
+  padding: 4px 8px;
+  margin-top: 4px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #fff;
+}
+
+.evento-prueba {
+  background-color: #e74c3c;
+}
+
+.evento-tarea {
+  background-color: #3498db;
+}
+
+.evento-actividad {
+  background-color: #2ecc71;
+}
+
+.evento-reunion {
+  background-color: #f39c12;
+}
+
+.evento-otro {
+  background-color: #95a5a6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .calendario-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+  }
+
+  .calendario-dia {
+    min-height: 80px;
+    padding: 5px;
+  }
+
+  .dia-numero {
+    font-size: 14px;
+  }
+
+  .evento {
+    font-size: 10px;
+    padding: 2px 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .calendario-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

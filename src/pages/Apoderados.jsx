@@ -90,6 +90,21 @@ export default function Apoderados() {
 
   return (
     <main>
+      {/* Hero */}
+      <section style={{
+        background: 'linear-gradient(135deg, #004aad 0%, #0066cc 100%)',
+        color: '#fff'
+      }}>
+        <Container>
+          <div style={{ padding: '56px 0' }}>
+            <h1 style={{ fontWeight: 800 }}>Portal de Apoderados</h1>
+            <p style={{ opacity: .95, maxWidth: 720 }}>
+              Accede a información académica, comunicación con el colegio y herramientas para acompañar a tus hijos.
+            </p>
+          </div>
+        </Container>
+      </section>
+
       <Container className="my-4">
         <Row className="justify-content-center">
           <Col md={8} lg={6}>
@@ -226,6 +241,27 @@ export default function Apoderados() {
             </Card>
           </Col>
         </Row>
+        {/* Beneficios y herramientas */}
+        <section className="mt-5">
+          <Row className="g-4">
+            {[
+              { icon:'💬', title:'Comunicación directa', text:'Mensajería con profesores y coordinación académica.' },
+              { icon:'📅', title:'Calendario escolar', text:'Fechas importantes, reuniones y actividades.' },
+              { icon:'📊', title:'Seguimiento académico', text:'Notas, asistencia y reportes por estudiante.' },
+              { icon:'💳', title:'Pagos online', text:'Cuotas y servicios desde el portal.' },
+            ].map((b, i) => (
+              <Col md={6} lg={3} key={i}>
+                <div style={{
+                  background:'#fff', borderRadius:16, boxShadow:'0 4px 12px rgba(0,0,0,0.08)', padding:24, height:'100%'
+                }}>
+                  <div style={{ fontSize:32, marginBottom:12 }}>{b.icon}</div>
+                  <h5 style={{ fontWeight:700 }}>{b.title}</h5>
+                  <p style={{ color:'#666', marginBottom:0 }}>{b.text}</p>
+                </div>
+              </Col>
+            ))}
+          </Row>
+        </section>
       </Container>
     </main>
   );
