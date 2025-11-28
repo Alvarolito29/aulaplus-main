@@ -271,53 +271,6 @@ function Contact() {
                             </Card.Body>
                         </Card>
                     </Col>
-                    {/* Información de contacto */}
-                    <Col lg={5} className="d-flex">
-                        <div className="flex-fill d-flex flex-column">
-                            {/* Tarjeta de información */}
-                            <Card 
-                                className="border-0 shadow-sm h-100 flex-fill" 
-                                style={{ borderRadius: '20px', background: 'linear-gradient(135deg, #004aad 0%, #0066cc 100%)', color: '#fff', boxShadow: '0 12px 28px rgba(0,0,0,0.12)' }}
-                            >
-                                <Card.Body style={{ padding: '32px' }}>
-                                    <h4 className="fw-bold mb-4">Información de contacto</h4>
-                                    <div className="mb-4">
-                                        <div style={{ fontSize: '32px', marginBottom: '12px' }}>📍</div>
-                                        <h6 className="fw-bold">Dirección</h6>
-                                        <p style={{ opacity: 0.95, fontSize: '1.05rem', marginBottom: 0 }}>
-                                            Dirección de ejemplo 123<br />
-                                            Santiago, Chile
-                                        </p>
-                                    </div>
-                                    <div className="mb-4">
-                                        <div style={{ fontSize: '32px', marginBottom: '12px' }}>📧</div>
-                                        <h6 className="fw-bold">Email</h6>
-                                        <p style={{ opacity: 0.95, fontSize: '1.05rem', marginBottom: 0 }}>
-                                            <a href="mailto:contacto@aulaplus.cl" style={{ color: '#fff', textDecoration: 'none' }}>
-                                                contacto@aulaplus.cl
-                                            </a>
-                                        </p>
-                                    </div>
-                                    <div className="mb-4">
-                                        <div style={{ fontSize: '32px', marginBottom: '12px' }}>📞</div>
-                                        <h6 className="fw-bold">Teléfono</h6>
-                                        <p style={{ opacity: 0.95, fontSize: '1.05rem', marginBottom: 0 }}>
-                                            +56 9 1234 5678
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <div style={{ fontSize: '32px', marginBottom: '12px' }}>🕒</div>
-                                        <h6 className="fw-bold">Horario de atención</h6>
-                                        <p style={{ opacity: 0.95, fontSize: '1.05rem', marginBottom: 0 }}>
-                                            Lunes a Viernes<br />
-                                            9:00 AM - 6:00 PM
-                                        </p>
-                                    </div>
-                                </Card.Body>
-                            </Card>
-                            {/* Tarjeta de ayuda rápida removida a solicitud */}
-                        </div>
-                    </Col>
                   </>
 
                     {/* Información de contacto */}

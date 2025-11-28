@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FaRegCommentDots } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 
 export default function SupportButton() {
@@ -178,26 +179,39 @@ export default function SupportButton() {
 
       {/* Botón pill flotante para abrir el chat (centro inferior) */}
       <button
-        aria-label="Preguntarle a AulaPlus"
+        aria-label="Chat AulaPlus"
         onClick={() => setOpen(!open)}
         style={{
           display: "inline-flex",
           alignItems: "center",
-          gap: 8,
-          padding: "10px 14px",
-          borderRadius: 999,
-          border: "none",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
-          background: "#6d28d9",
-          color: "#fff",
-          fontWeight: 700,
-          cursor: "pointer",
-          minWidth: 240,
           justifyContent: "center",
+          padding: 0,
+          width: 60,
+          height: 54,
+          border: "none",
+          background: "transparent",
+          cursor: "pointer",
         }}
       >
-        <span style={{ fontSize: 18 }}>💬</span>
-        Preguntarle a AulaPlus
+        <span
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)",
+            color: "#fff",
+            fontSize: 34,
+            borderRadius: "24px 24px 24px 10px",
+            width: 60,
+            height: 54,
+            boxShadow: "0 8px 24px rgba(0,0,0,0.18)",
+            border: "none",
+            lineHeight: 1,
+            transition: 'box-shadow 0.2s',
+          }}
+        >
+          <FaRegCommentDots style={{ filter: 'drop-shadow(0 2px 6px #0002)' }} />
+        </span>
       </button>
     </div>
   );
