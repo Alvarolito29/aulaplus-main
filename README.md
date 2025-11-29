@@ -49,37 +49,30 @@
 
 ## 📁 Estructura del Proyecto
 
-```bash
-aulaplus-main/
-├─ backend/                  # Backend Java Spring Boot (API, seguridad, repositorios)
-│
-├─ public/                   # Archivos públicos (index.html, manifest, robots)
-│
-├─ src/
-│  ├─ app/
-│  │   └─ routes.js          # Definición de rutas principales
-│  ├─ components/
-│  │   ├─ NavBar.jsx         # Navegación principal
-│  │   ├─ CalendarioPruebas.jsx, .css
-│  │   ├─ SupportButton.jsx
-│  │   └─ aulaplus/          # Cards, grids y filtros personalizados
-│  ├─ context/
-│  │   └─ AppContext.js      # Contexto global de la app
-│  ├─ data/
-│  │   ├─ aulaplus.mock.js   # Datos simulados para métricas escolares
-│  │   └─ eventosEscolares.js
-│  ├─ pages/
-│  │   ├─ Home.jsx           # Landing page con stats y misión
-│  │   ├─ Apoderados.jsx     # Portal de apoderados con métricas completas
-│  │   ├─ ClasesHorario.jsx, Asistencia.jsx, NotasEvaluaciones.jsx, Mensajeria.jsx
-│  │   ├─ Products.jsx, Contact.jsx, etc.
-│  │   └─ ...
-│  ├─ App.js, App.css, index.js, index.css
-│  ├─ reportWebVitals.js, setupTests.js
-│
-├─ package.json, README.md
-└─ ...
-```
+
+## Estructura del Proyecto
+
+- `backend/`: Backend Java Spring Boot (API, seguridad, repositorios)
+- `public/`: Archivos públicos (index.html, manifest, robots)
+- `src/`
+  - `app/routes.js`: Definición de rutas principales
+  - `components/`
+    - `NavBar.jsx`: Navegación principal
+    - `CalendarioPruebas.jsx`, `.css`: Calendario de pruebas
+    - `SupportButton.jsx`: Botón de soporte
+    - `aulaplus/`: Cards, grids y filtros personalizados
+  - `context/AppContext.js`: Contexto global de la app
+  - `data/`
+    - `aulaplus.mock.js`: Datos simulados para métricas escolares
+    - `eventosEscolares.js`: Eventos escolares simulados
+  - `pages/`
+    - `Home.jsx`: Landing page con stats y misión
+    - `Apoderados.jsx`: Portal de apoderados con métricas completas
+    - `ClasesHorario.jsx`, `Asistencia.jsx`, `NotasEvaluaciones.jsx`, `Mensajeria.jsx`: Herramientas docentes
+    - `Products.jsx`, `Contact.jsx`, etc.: Otras páginas
+  - `App.js`, `App.css`, `index.js`, `index.css`: Archivos principales de la app
+  - `reportWebVitals.js`, `setupTests.js`: Utilidades y configuración de tests
+- `package.json`, `README.md`: Configuración y documentación
 
 
 ## 🧰 Scripts principales
