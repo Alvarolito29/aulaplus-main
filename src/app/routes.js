@@ -20,13 +20,10 @@ import DemoApiPage from "../pages/DemoApiPage";
 
 
 // Componentes placeholder para las herramientas docentes
-import { Fragment } from "react";
-const Placeholder = ({ title }) => (
-  <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#f8f9fa' }}>
-    <h2 style={{ fontWeight: 800, color: '#004aad', fontSize: '2.2rem', marginBottom: 16 }}>{title}</h2>
-    <p style={{ color: '#555', fontSize: '1.15rem', maxWidth: 520, textAlign: 'center' }}>Próximamente aquí podrás gestionar todo lo relacionado con {title.toLowerCase()}.</p>
-  </div>
-);
+import ClasesHorario from "../pages/ClasesHorario";
+import Asistencia from "../pages/Asistencia";
+import NotasEvaluaciones from "../pages/NotasEvaluaciones";
+import Mensajeria from "../pages/Mensajeria";
 
 const routes = [
   { path: "/", element: <Home /> },
@@ -37,10 +34,10 @@ const routes = [
   { path: "/estudiantes", element: <Estudiantes /> },
   { path: "/apoderados", element: <Apoderados /> },
   { path: "/profesores", element: <Profesores /> },
-  { path: "/profesores/clases-horario", element: <Placeholder title="Clases y Horario" /> },
-  { path: "/profesores/asistencia", element: <Placeholder title="Asistencia" /> },
-  { path: "/profesores/notas-evaluaciones", element: <Placeholder title="Notas y Evaluaciones" /> },
-  { path: "/profesores/mensajeria", element: <Placeholder title="Mensajería" /> },
+  { path: "/profesores/clases-horario", element: <ClasesHorario /> },
+  { path: "/profesores/asistencia", element: <Asistencia /> },
+  { path: "/profesores/notas-evaluaciones", element: <NotasEvaluaciones /> },
+  { path: "/profesores/mensajeria", element: <Mensajeria /> },
   { path: "/funcionarios", element: <Funcionarios /> },
   { path: "/admision", element: <Admision /> },
   { path: "/sobre-nosotros", element: <SobreNosotros /> },

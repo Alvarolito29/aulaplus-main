@@ -1,8 +1,9 @@
 
 import React, { useState } from 'react';
+import './Profesores.css';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { FaUserCheck, FaChalkboardTeacher, FaChartBar, FaEnvelopeOpenText, FaBell, FaClipboardList, FaUsers, FaBookOpen, FaCalendarAlt } from 'react-icons/fa';
+import { FaUserCheck, FaChartBar, FaEnvelopeOpenText, FaBell, FaClipboardList, FaUsers, FaBookOpen, FaCalendarAlt } from 'react-icons/fa';
 
 export default function Profesores() {
   // Simulación de datos
@@ -91,7 +92,7 @@ export default function Profesores() {
                     ...styles.card,
                     transition: 'transform 0.18s cubic-bezier(.4,2,.6,1)',
                     cursor: 'pointer',
-                    boxShadow: '0 6px 24px rgba(0,74,173,0.10)',
+                      boxShadow: '0 6px 24px rgba(0,74,173,0.10)',
                   }}
                   className="h-100 tool-card"
                   as={Link}
@@ -104,13 +105,12 @@ export default function Profesores() {
                 >
                   <Card.Body className="p-4 text-center">
                     <div style={styles.icon}>{t.icon}</div>
-                    <h5 style={{ ...styles.title, marginBottom: 8, textDecoration: 'none' }}>{t.title}</h5>
+                    <h5 style={{ ...styles.title, marginBottom: 8 }}>{t.title}</h5>
                     <div style={{ ...styles.text, marginBottom: 18 }}>
-                      {/* Forzar sin subrayado en todos los elementos relevantes */}
-                      <div style={{ textDecoration: 'none', fontWeight: 500, color: '#222', fontSize: '1.08rem', marginBottom: 2 }}>{t.subtitle}</div>
-                      <ul style={{ textAlign: 'left', fontSize: '.98rem', color: '#444', margin: '10px auto 0', paddingLeft: 18, maxWidth: 220, listStyle: 'disc', textDecoration: 'none' }}>
+                      <div style={{ fontWeight: 500, color: '#222', fontSize: '1.08rem', marginBottom: 2 }}>{t.subtitle}</div>
+                      <ul style={{ textAlign: 'left', fontSize: '.98rem', color: '#444', margin: '10px auto 0', paddingLeft: 18, maxWidth: 220, listStyle: 'disc' }}>
                         {t.items.map((item, idx) => (
-                          <li key={idx} style={{ textDecoration: 'none' }}>{item}</li>
+                          <li key={idx}>{item}</li>
                         ))}
                       </ul>
                     </div>
@@ -140,7 +140,7 @@ const tools = [
     subtitle: 'Organiza tu día a día docente.',
     items: [
       'Consulta tu horario semanal',
-      'Visualiza próximas clases',
+      'Visualiza próximas clases y detalles de la sesión. ',
       'Accede a materiales y planificaciones',
     ],
     route: '/profesores/clases-horario',

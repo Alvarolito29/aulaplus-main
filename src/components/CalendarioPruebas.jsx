@@ -30,7 +30,6 @@ const CalendarioPruebas = ({ events = [] }) => {
 
   const year = new Date().getFullYear();
   const diasMes = useMemo(() => {
-    const primerDia = new Date(year, monthIdx, 1);
     const ultimoDia = new Date(year, monthIdx + 1, 0);
     const days = [];
     for (let i = 1; i <= ultimoDia.getDate(); i++) days.push(new Date(year, monthIdx, i));

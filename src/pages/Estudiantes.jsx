@@ -62,13 +62,13 @@ export default function Estudiantes() {
   }, [studentName]);
 
   // LocalStorage
-  const [notes, setNotes] = useState(() => JSON.parse(localStorage.getItem("notes") || "{}"));
+  const [notes] = useState(() => JSON.parse(localStorage.getItem("notes") || "{}"));
   const [favCourses, setFavCourses] = useState(() => JSON.parse(localStorage.getItem("favCourses") || "[]"));
 
-  const [q, setQ] = useState("");
+  const [q] = useState("");
   const [activeView, setActiveView] = useState("activities"); // activities | courses | course | calendar | messages
   const [selectedCourse, setSelectedCourse] = useState(null);
-  const [completedActivities, setCompletedActivities] = useState(() => JSON.parse(localStorage.getItem('completedActivities')||'[]'));
+  const [completedActivities] = useState(() => JSON.parse(localStorage.getItem('completedActivities')||'[]'));
   const [showMoreActivities, setShowMoreActivities] = useState(false);
   const [dismissedAnnouncements, setDismissedAnnouncements] = useState(() => JSON.parse(localStorage.getItem('dismissedAnnouncements') || '[]'));
   // Announcements derived from upcoming events + manual posts
@@ -159,24 +159,11 @@ export default function Estudiantes() {
     );
   }
 
-  function updateNote(courseId, text) {
-    setNotes(prev => ({ ...prev, [courseId]: text }));
-  }
+  // updateNote eliminado (no usado)
 
-  function openCourse(courseId) {
-    const curso = COURSES_BASE.find(c => c.id === courseId) || null;
-    setSelectedCourse(curso);
-    setActiveView("course");
-  }
+  // openCourse eliminado (no usado)
 
-  function toggleComplete(evId) {
-    setCompletedActivities(prev => {
-      const exists = prev.includes(evId);
-      const next = exists ? prev.filter(id => id !== evId) : [...prev, evId];
-      localStorage.setItem('completedActivities', JSON.stringify(next));
-      return next;
-    });
-  }
+  // toggleComplete eliminado (no usado)
 
   // createPost removed: posting manual avisos no persistente (no guardar en localStorage)
 
