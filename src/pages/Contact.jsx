@@ -30,7 +30,7 @@ function Contact() {
             setErrors([]); // Limpiar errores anteriores
             
             try {
-                const response = await fetch('http://localhost:8080/api/contacto', {
+                const response = await fetch('https://aulaplus-main-1.onrender.com/api/contacto', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

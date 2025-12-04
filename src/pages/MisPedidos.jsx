@@ -19,7 +19,7 @@ const MisPedidos = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/api/biblioteca/pedidos/usuario/${user.id}`);
+      const response = await fetch(`https://aulaplus-main-1.onrender.com/api/biblioteca/pedidos/usuario/${user.id}`);
       const data = await response.json();
       // Ordenar por fecha más reciente
       const pedidosOrdenados = data.sort((a, b) => 

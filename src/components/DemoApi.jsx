@@ -10,7 +10,7 @@ function DemoApi() {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch("http://localhost:8080/api/demo/mensaje");
+        const response = await fetch("https://aulaplus-main-1.onrender.com/api/demo/mensaje");
         if (!response.ok) {
           throw new Error("Error al llamar a la API: " + response.status);
         }

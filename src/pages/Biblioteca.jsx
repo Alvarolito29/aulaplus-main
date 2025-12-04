@@ -47,7 +47,7 @@ const Biblioteca = () => {
     }
     
     try {
-      const response = await fetch('http://localhost:8080/api/biblioteca/libros');
+      const response = await fetch('https://aulaplus-main-1.onrender.com/api/biblioteca/libros');
       if (!response.ok) {
         throw new Error('Error al cargar libros');
       }
@@ -172,7 +172,7 @@ const Biblioteca = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/api/biblioteca/pedidos', {
+      const response = await fetch('https://aulaplus-main-1.onrender.com/api/biblioteca/pedidos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(pedido)
