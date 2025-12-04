@@ -17,6 +17,8 @@ import MisionVision from "../pages/MisionVision";
 import Infraestructura from "../pages/Infraestructura";
 import NoticiasEventos from "../pages/NoticiasEventos";
 
+import Biblioteca from "../pages/Biblioteca";
+import MisPedidos from "../pages/MisPedidos";
 
 import CursoDetalle from "../pages/CursoDetalle";
 import DemoApiPage from "../pages/DemoApiPage";
@@ -35,12 +37,28 @@ const routes = [
   { path: "/products", element: <Products /> },
   { path: "/contact", element: <Contact /> },
   { path: "/cursos", element: <Cursos /> },
+  { 
+    path: "/biblioteca", 
+    element: (
+      <ProtectedRoute allowedRoles={['estudiante', 'alumno']}>
+        <Biblioteca />
+      </ProtectedRoute>
+    )
+  },
 
   { 
     path: "/estudiantes", 
     element: (
       <ProtectedRoute allowedRoles={['estudiante', 'alumno']}>
         <Estudiantes />
+      </ProtectedRoute>
+    )
+  },
+  { 
+    path: "/estudiantes/mis-pedidos", 
+    element: (
+      <ProtectedRoute allowedRoles={['estudiante', 'alumno', 'profesor', 'apoderado']}>
+        <MisPedidos />
       </ProtectedRoute>
     )
   },

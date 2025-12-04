@@ -229,15 +229,14 @@ export default function Estudiantes() {
   useEffect(() => {
     async function cargarDatos() {
       try {
-        const [cursos, eventos, mensajes] = await Promise.all([
+        const [cursos, eventos] = await Promise.all([
           cursosService.getAll(),
-          eventosService.getAll(),
-          mensajesService.getRecibidos()
+          eventosService.getAll()
         ]);
         
         setCursosBackend(cursos);
         setEventosBackend(eventos);
-        setMensajesRecibidos(mensajes);
+        setMensajesRecibidos([]);
         setLoading(false);
       } catch (error) {
         console.error('Error cargando datos:', error);

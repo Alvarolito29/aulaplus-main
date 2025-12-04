@@ -3,9 +3,11 @@ package com.aulaplus.backend.config;
 import com.aulaplus.backend.model.Curso;
 import com.aulaplus.backend.model.Evento;
 import com.aulaplus.backend.model.Usuario;
+import com.aulaplus.backend.model.Libro;
 import com.aulaplus.backend.repository.CursoRepository;
 import com.aulaplus.backend.repository.EventoRepository;
 import com.aulaplus.backend.repository.UsuarioRepository;
+import com.aulaplus.backend.repository.LibroRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +22,7 @@ import java.util.Optional;
 public class DataInitializer {
 
     @Bean
-    CommandLineRunner initDatabase(CursoRepository cursoRepository, EventoRepository eventoRepository, UsuarioRepository usuarioRepository) {
+    CommandLineRunner initDatabase(CursoRepository cursoRepository, EventoRepository eventoRepository, UsuarioRepository usuarioRepository, LibroRepository libroRepository) {
         return args -> {
             // Inicializar usuarios primero
             System.out.println("Inicializando usuarios en MongoDB...");
@@ -36,6 +38,11 @@ public class DataInitializer {
             if (eventoRepository.count() < 10) {
                 System.out.println("Inicializando eventos en MongoDB...");
                 initEventos(eventoRepository);
+            }
+
+            if (libroRepository.count() < 10) {
+                System.out.println("Inicializando biblioteca en MongoDB...");
+                initLibros(libroRepository);
             }
         };
     }
@@ -222,6 +229,133 @@ public class DataInitializer {
 
         eventoRepository.saveAll(eventos);
         System.out.println("✓ " + eventos.size() + " eventos guardados");
+    }
+
+    private void initLibros(LibroRepository libroRepository) {
+        List<Libro> libros = Arrays.asList(
+            new Libro("Cien años de soledad", "Gabriel García Márquez", "Literatura", "978-0307474728", 
+                     "Editorial Sudamericana", 1967, "Una obra maestra de la literatura latinoamericana que narra la historia de la familia Buendía.", 
+                     null, 15, 0.0),
+            
+            new Libro("1984", "George Orwell", "Ficción Distópica", "978-0451524935", 
+                     "Secker & Warburg", 1949, "Una novela distópica sobre un futuro totalitario.", 
+                     null, 20, 0.0),
+            
+            new Libro("El Principito", "Antoine de Saint-Exupéry", "Literatura Infantil", "978-0156012195", 
+                     "Reynal & Hitchcock", 1943, "Un clásico de la literatura infantil sobre un pequeño príncipe que viaja por el universo.", 
+                     null, 30, 0.0),
+            
+            new Libro("Don Quijote de la Mancha", "Miguel de Cervantes", "Clásicos", "978-8491050421", 
+                     "Francisco de Robles", 1605, "La novela más influyente de la literatura española.", 
+                     null, 12, 0.0),
+            
+            new Libro("Harry Potter y la piedra filosofal", "J.K. Rowling", "Fantasía", "978-0439708180", 
+                     "Bloomsbury", 1997, "El inicio de la saga del joven mago Harry Potter.", 
+                     null, 25, 0.0),
+            
+            new Libro("Sapiens: De animales a dioses", "Yuval Noah Harari", "Historia", "978-0062316097", 
+                     "Debate", 2011, "Una breve historia de la humanidad desde la Edad de Piedra hasta la actualidad.", 
+                     null, 18, 0.0),
+            
+            new Libro("El Alquimista", "Paulo Coelho", "Autoayuda", "978-0062315007", 
+                     "HarperOne", 1988, "Una fábula sobre seguir tus sueños y escuchar tu corazón.", 
+                     null, 22, 0.0),
+            
+            new Libro("Breve historia del tiempo", "Stephen Hawking", "Ciencia", "978-0553380163", 
+                     "Bantam Books", 1988, "Una explicación accesible sobre el universo y sus misterios.", 
+                     null, 10, 0.0),
+            
+            new Libro("La sombra del viento", "Carlos Ruiz Zafón", "Misterio", "978-0143034902", 
+                     "Planeta", 2001, "Un joven descubre un libro que cambiará su vida en la Barcelona de posguerra.", 
+                     null, 16, 0.0),
+            
+            new Libro("El código Da Vinci", "Dan Brown", "Thriller", "978-0307474278", 
+                     "Doubleday", 2003, "Un thriller que mezcla arte, historia y conspiración religiosa.", 
+                     null, 14, 0.0),
+            
+            new Libro("Cálculo: Una variable", "James Stewart", "Matemáticas", "978-1285740621", 
+                     "Cengage Learning", 2015, "Libro de texto universitario de cálculo diferencial e integral.", 
+                     null, 8, 0.0),
+            
+            new Libro("Física para ciencias e ingeniería", "Raymond Serway", "Física", "978-1305952300", 
+                     "Cengage Learning", 2018, "Libro completo de física universitaria.", 
+                     null, 6, 0.0),
+            
+            new Libro("El nombre del viento", "Patrick Rothfuss", "Fantasía", "978-0756404741", 
+                     "DAW Books", 2007, "La historia de Kvothe, un héroe legendario.", 
+                     null, 20, 0.0),
+            
+            new Libro("Crimen y Castigo", "Fiódor Dostoyevski", "Clásicos", "978-0486415871", 
+                     "The Russian Messenger", 1866, "Una obra maestra sobre la moral y el arrepentimiento.", 
+                     null, 11, 0.0),
+            
+            new Libro("Padre rico, padre pobre", "Robert Kiyosaki", "Finanzas", "978-1612680194", 
+                     "Plata Publishing", 1997, "Lecciones sobre educación financiera y libertad económica.", 
+                     null, 25, 0.0),
+            
+            new Libro("El hobbit", "J.R.R. Tolkien", "Fantasía", "978-0547928227", 
+                     "George Allen & Unwin", 1937, "La aventura de Bilbo Bolsón en la Tierra Media.", 
+                     null, 18, 0.0),
+            
+            new Libro("To Kill a Mockingbird", "Harper Lee", "Clásicos", "978-0061120084", 
+                     "J.B. Lippincott & Co.", 1960, "Una historia sobre justicia racial en el sur de Estados Unidos.", 
+                     null, 14, 0.0),
+            
+            new Libro("El señor de los anillos", "J.R.R. Tolkien", "Fantasía", "978-0544003415", 
+                     "George Allen & Unwin", 1954, "La épica aventura para destruir el Anillo Único.", 
+                     null, 12, 0.0),
+            
+            new Libro("Orgullo y Prejuicio", "Jane Austen", "Romance", "978-0141439518", 
+                     "T. Egerton", 1813, "La historia de Elizabeth Bennet y el señor Darcy.", 
+                     null, 20, 0.0),
+            
+            new Libro("El arte de la guerra", "Sun Tzu", "Filosofía", "978-1599869773", 
+                     "Shambhala", -500, "Antiguo tratado militar chino sobre estrategia.", 
+                     null, 30, 0.0),
+            
+            new Libro("Piensa y crece", "Napoleon Hill", "Autoayuda", "978-1585424337", 
+                     "The Ralston Society", 1937, "Principios del éxito personal y financiero.", 
+                     null, 22, 0.0),
+            
+            new Libro("El diario de Ana Frank", "Ana Frank", "Biografía", "978-0553296983", 
+                     "Contact Publishing", 1947, "El diario de una niña judía durante el Holocausto.", 
+                     null, 15, 0.0),
+            
+            new Libro("Los juegos del hambre", "Suzanne Collins", "Distopía", "978-0439023481", 
+                     "Scholastic Press", 2008, "Una adolescente lucha por sobrevivir en un futuro distópico.", 
+                     null, 25, 0.0),
+            
+            new Libro("Crónica de una muerte anunciada", "Gabriel García Márquez", "Literatura", "978-0307387455", 
+                     "Editorial La Oveja Negra", 1981, "Una investigación sobre un crimen anunciado en un pueblo.", 
+                     null, 17, 0.0),
+            
+            new Libro("La metamorfosis", "Franz Kafka", "Clásicos", "978-0486290300", 
+                     "Kurt Wolff Verlag", 1915, "Un hombre despierta convertido en un insecto gigante.", 
+                     null, 28, 0.0),
+            
+            new Libro("El retrato de Dorian Gray", "Oscar Wilde", "Clásicos", "978-0141439570", 
+                     "Lippincott's Monthly Magazine", 1890, "Un hombre vende su alma para mantenerse joven.", 
+                     null, 19, 0.0),
+            
+            new Libro("Fahrenheit 451", "Ray Bradbury", "Ciencia Ficción", "978-1451673319", 
+                     "Ballantine Books", 1953, "En un futuro donde los libros están prohibidos.", 
+                     null, 16, 0.0),
+            
+            new Libro("El gran Gatsby", "F. Scott Fitzgerald", "Clásicos", "978-0743273565", 
+                     "Charles Scribner's Sons", 1925, "La historia del misterioso millonario Jay Gatsby.", 
+                     null, 21, 0.0),
+            
+            new Libro("Drácula", "Bram Stoker", "Terror", "978-0486411095", 
+                     "Archibald Constable", 1897, "La historia clásica del vampiro más famoso.", 
+                     null, 13, 0.0),
+            
+            new Libro("Frankenstein", "Mary Shelley", "Terror", "978-0486282114", 
+                     "Lackington, Hughes", 1818, "Un científico crea una criatura que cobra vida.", 
+                     null, 15, 0.0)
+        );
+
+        libroRepository.saveAll(libros);
+        System.out.println("✓ " + libros.size() + " libros guardados en la biblioteca");
     }
 
     private Evento createEvento(String fecha, String titulo, String curso, String tipo, String lugar, String hora) {

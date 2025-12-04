@@ -28,6 +28,7 @@ public class SecurityConfig {
                 // Endpoints públicos
                 .requestMatchers("/api/auth/**", "/api/contacto").permitAll()
                 .requestMatchers("/api/cursos", "/api/eventos").permitAll()
+                .requestMatchers("/api/biblioteca/**").permitAll()
                 // Endpoints protegidos por rol
                 .requestMatchers("/api/estudiantes/**").hasRole("ESTUDIANTE")
                 .requestMatchers("/api/profesores/**").hasRole("PROFESOR")

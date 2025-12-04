@@ -100,6 +100,12 @@ export default function NavBar() {
             </Link>
           </li>
 
+          <li>
+            <Link to="/biblioteca" style={styles.link}>
+              📚 Biblioteca
+            </Link>
+          </li>
+
           {/* INSTITUCIÓN DROPDOWN */}
           <li
             style={styles.menuItem}
