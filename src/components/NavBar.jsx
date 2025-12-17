@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import AuthService from "../services/AuthService";
 
 const baseFont =
   "'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
@@ -16,12 +17,8 @@ export default function NavBar() {
 
   // Función para verificar usuario logueado
   const checkUser = () => {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      setUser(JSON.parse(userData));
-    } else {
-      setUser(null);
-    }
+    const userData = AuthService.getCurrentUser();
+    setUser(userData);
   };
 
   useEffect(() => {
@@ -51,15 +48,7 @@ export default function NavBar() {
   }, []);
   
   const handleLogout = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('userName');
-    setUser(null);
-    // Disparar evento para notificar cambio
-    window.dispatchEvent(new Event('userChanged'));
-    navigate('/login');
+    AuthService.logout();
   };
 
   // Función para cerrar todos los menús

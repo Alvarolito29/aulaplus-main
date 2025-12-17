@@ -3,7 +3,7 @@ import { Container, Row, Col, Card, Button, Badge, ListGroup, Form } from "react
 import Modal from 'react-bootstrap/Modal';
 import CalendarioPruebas from "../components/CalendarioPruebas";
 import eventosEscolares from "../data/eventosEscolares"; // ✔ Import definitivo correcto
-import { cursosService, eventosService, mensajesService } from "../services/api";
+import { cursosService } from "../services/api";
 import "./Estudiantes.css";
 
 // Cursos base
@@ -229,17 +229,16 @@ export default function Estudiantes() {
   useEffect(() => {
     async function cargarDatos() {
       try {
-        const [cursos, eventos] = await Promise.all([
-          cursosService.getAll(),
-          eventosService.getAll()
-        ]);
+        const cursos = await cursosService.getAll();
         
         setCursosBackend(cursos);
-        setEventosBackend(eventos);
+        setEventosBackend(eventosEscolares); // Usar datos locales
         setMensajesRecibidos([]);
         setLoading(false);
       } catch (error) {
         console.error('Error cargando datos:', error);
+        // Si falla, usar datos locales
+        setEventosBackend(eventosEscolares);
         setLoading(false);
       }
     }

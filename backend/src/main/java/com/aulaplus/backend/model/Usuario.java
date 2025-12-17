@@ -1,27 +1,26 @@
 package com.aulaplus.backend.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.index.Indexed;
-import java.util.List;
+import jakarta.persistence.*;
 
-@Document(collection = "usuarios")
+@Entity
+@Table(name = "usuarios")
 public class Usuario {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     
-    @Indexed(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
     
+    @Column(nullable = false)
     private String password;
+    
     private String nombre;
     private String rol;
-    private List<String> cursosIds;
-
-    public Usuario() {}
-
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
@@ -34,7 +33,4 @@ public class Usuario {
     
     public String getRol() { return rol; }
     public void setRol(String rol) { this.rol = rol; }
-    
-    public List<String> getCursosIds() { return cursosIds; }
-    public void setCursosIds(List<String> cursosIds) { this.cursosIds = cursosIds; }
 }

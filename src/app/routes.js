@@ -40,7 +40,7 @@ const routes = [
   { 
     path: "/biblioteca", 
     element: (
-      <ProtectedRoute allowedRoles={['estudiante', 'alumno']}>
+      <ProtectedRoute allowedRoles={['ESTUDIANTE', 'PROFESOR', 'APODERADO']}>
         <Biblioteca />
       </ProtectedRoute>
     )
@@ -49,7 +49,7 @@ const routes = [
   { 
     path: "/estudiantes", 
     element: (
-      <ProtectedRoute allowedRoles={['estudiante', 'alumno']}>
+      <ProtectedRoute allowedRoles={['ESTUDIANTE']}>
         <Estudiantes />
       </ProtectedRoute>
     )
@@ -57,7 +57,7 @@ const routes = [
   { 
     path: "/estudiantes/mis-pedidos", 
     element: (
-      <ProtectedRoute allowedRoles={['estudiante', 'alumno', 'profesor', 'apoderado']}>
+      <ProtectedRoute allowedRoles={['ESTUDIANTE', 'PROFESOR', 'APODERADO']}>
         <MisPedidos />
       </ProtectedRoute>
     )
@@ -65,7 +65,7 @@ const routes = [
   { 
     path: "/apoderados", 
     element: (
-      <ProtectedRoute allowedRoles={['apoderado']}>
+      <ProtectedRoute allowedRoles={['APODERADO']}>
         <Apoderados />
       </ProtectedRoute>
     )
@@ -73,7 +73,7 @@ const routes = [
   { 
     path: "/profesores", 
     element: (
-      <ProtectedRoute allowedRoles={['profesor']}>
+      <ProtectedRoute allowedRoles={['PROFESOR']}>
         <Profesores />
       </ProtectedRoute>
     )
@@ -81,7 +81,7 @@ const routes = [
   { 
     path: "/profesores/clases-horario", 
     element: (
-      <ProtectedRoute allowedRoles={['profesor']}>
+      <ProtectedRoute allowedRoles={['PROFESOR']}>
         <ClasesHorario />
       </ProtectedRoute>
     )
@@ -89,7 +89,7 @@ const routes = [
   { 
     path: "/profesores/asistencia", 
     element: (
-      <ProtectedRoute allowedRoles={['profesor']}>
+      <ProtectedRoute allowedRoles={['PROFESOR']}>
         <Asistencia />
       </ProtectedRoute>
     )
@@ -97,7 +97,7 @@ const routes = [
   { 
     path: "/profesores/notas-evaluaciones", 
     element: (
-      <ProtectedRoute allowedRoles={['profesor']}>
+      <ProtectedRoute allowedRoles={['PROFESOR']}>
         <NotasEvaluaciones />
       </ProtectedRoute>
     )
@@ -105,7 +105,7 @@ const routes = [
   { 
     path: "/profesores/mensajeria", 
     element: (
-      <ProtectedRoute allowedRoles={['profesor']}>
+      <ProtectedRoute allowedRoles={['PROFESOR']}>
         <Mensajeria />
       </ProtectedRoute>
     )

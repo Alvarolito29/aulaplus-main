@@ -1,57 +1,37 @@
 package com.aulaplus.backend.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import java.util.List;
+import jakarta.persistence.*;
 
-@Document(collection = "cursos")
+@Entity
+@Table(name = "cursos")
 public class Curso {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     
     private String nombre;
-    private String categoria;
-    private String descripcion;
-    private List<String> objetivos;
-    private List<String> programa;
-    private List<String> tareas;
-    private String profesorId;
-    private String profesorNombre;
-    private List<String> estudiantesIds;
-    private String horario;
+    private String nivel;
+    private String seccion;
+    private Integer anio;
+    private Long profesorId;
 
     public Curso() {}
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-    
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
-    
-    public String getCategoria() { return categoria; }
-    public void setCategoria(String categoria) { this.categoria = categoria; }
-    
-    public String getDescripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
-    
-    public List<String> getObjetivos() { return objetivos; }
-    public void setObjetivos(List<String> objetivos) { this.objetivos = objetivos; }
-    
-    public List<String> getPrograma() { return programa; }
-    public void setPrograma(List<String> programa) { this.programa = programa; }
-    
-    public List<String> getTareas() { return tareas; }
-    public void setTareas(List<String> tareas) { this.tareas = tareas; }
-    
-    public String getProfesorId() { return profesorId; }
-    public void setProfesorId(String profesorId) { this.profesorId = profesorId; }
-    
-    public String getProfesorNombre() { return profesorNombre; }
-    public void setProfesorNombre(String profesorNombre) { this.profesorNombre = profesorNombre; }
-    
-    public List<String> getEstudiantesIds() { return estudiantesIds; }
-    public void setEstudiantesIds(List<String> estudiantesIds) { this.estudiantesIds = estudiantesIds; }
-    
-    public String getHorario() { return horario; }
-    public void setHorario(String horario) { this.horario = horario; }
+
+    public String getNivel() { return nivel; }
+    public void setNivel(String nivel) { this.nivel = nivel; }
+
+    public String getSeccion() { return seccion; }
+    public void setSeccion(String seccion) { this.seccion = seccion; }
+
+    public Integer getAnio() { return anio; }
+    public void setAnio(Integer anio) { this.anio = anio; }
+
+    public Long getProfesorId() { return profesorId; }
+    public void setProfesorId(Long profesorId) { this.profesorId = profesorId; }
 }

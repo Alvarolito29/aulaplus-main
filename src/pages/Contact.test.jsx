@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Contact from './Contact';
 
@@ -34,14 +34,32 @@ describe('Contact Component', () => {
     });
     
     test('envío válido muestra mensaje de éxito', async () => {
+        // Mock de fetch para simular respuesta exitosa del servidor
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                ok: true,
+                json: () => Promise.resolve({ message: 'Mensaje enviado' }),
+            })
+        );
+
         render(<Contact />);
 
         await userEvent.type(screen.getByLabelText(/nombre/i), 'Ada Lovelace');
         await userEvent.type(screen.getByLabelText(/correo/i), 'ada@example.com');
+        
+        // Seleccionar el tipo de servicio (campo requerido)
+        const serviceSelect = screen.getByLabelText(/Tipo de servicio/i);
+        await userEvent.selectOptions(serviceSelect, 'Soporte');
+        
         await userEvent.type(screen.getByLabelText(/mensaje/i), 'Hola');
 
         await userEvent.click(screen.getByRole('button', { name: /enviar/i }));
 
-        expect(screen.getByText(/¡Mensaje enviado/i)).toBeInTheDocument();
+        await waitFor(() => {
+            expect(screen.getByText(/¡Mensaje enviado exitosamente/i)).toBeInTheDocument();
+        });
+
+        // Limpiar el mock
+        global.fetch.mockClear();
     });
 });

@@ -2,147 +2,106 @@ package com.aulaplus.backend.controller;
 
 import com.aulaplus.backend.model.Libro;
 import com.aulaplus.backend.model.Pedido;
-import com.aulaplus.backend.repository.LibroRepository;
-import com.aulaplus.backend.repository.PedidoRepository;
+import com.aulaplus.backend.service.LibroService;
+import com.aulaplus.backend.service.PedidoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/biblioteca")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
+@Tag(name = "Biblioteca", description = "CRUD completo de libros y pedidos")
 public class BibliotecaController {
 
     @Autowired
-    private LibroRepository libroRepository;
-
+    private LibroService libroService;
+    
     @Autowired
-    private PedidoRepository pedidoRepository;
+    private PedidoService pedidoService;
 
-    // ========== LIBROS ==========
+    // ============ LIBROS - CRUD COMPLETO ============
     
     @GetMapping("/libros")
-    public ResponseEntity<List<Libro>> getAllLibros() {
-        List<Libro> libros = libroRepository.findAll();
-        return ResponseEntity.ok(libros);
+    @Operation(summary = "Listar todos los libros")
+    public ResponseEntity<List<Libro>> getLibros() {
+        return ResponseEntity.ok(libroService.findAll());
     }
-
+    
     @GetMapping("/libros/{id}")
-    public ResponseEntity<Libro> getLibroById(@PathVariable String id) {
-        return libroRepository.findById(id)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
+    @Operation(summary = "Obtener libro por ID")
+    public ResponseEntity<?> getLibroById(@PathVariable Long id) {
+        return libroService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
-
-    @GetMapping("/libros/categoria/{categoria}")
-    public ResponseEntity<List<Libro>> getLibrosByCategoria(@PathVariable String categoria) {
-        List<Libro> libros = libroRepository.findByCategoria(categoria);
-        return ResponseEntity.ok(libros);
-    }
-
-    @GetMapping("/libros/autor/{autor}")
-    public ResponseEntity<List<Libro>> getLibrosByAutor(@PathVariable String autor) {
-        List<Libro> libros = libroRepository.findByAutor(autor);
-        return ResponseEntity.ok(libros);
-    }
-
-    @GetMapping("/libros/buscar")
-    public ResponseEntity<List<Libro>> buscarLibros(@RequestParam String titulo) {
-        List<Libro> libros = libroRepository.findByTituloContainingIgnoreCase(titulo);
-        return ResponseEntity.ok(libros);
-    }
-
-    @GetMapping("/libros/disponibles")
-    public ResponseEntity<List<Libro>> getLibrosDisponibles() {
-        List<Libro> libros = libroRepository.findByDisponible(true);
-        return ResponseEntity.ok(libros);
-    }
-
+    
     @PostMapping("/libros")
-    public ResponseEntity<Libro> crearLibro(@RequestBody Libro libro) {
-        Libro libroGuardado = libroRepository.save(libro);
-        return ResponseEntity.ok(libroGuardado);
+    @PreAuthorize("hasAnyRole('ADMIN', 'PROFESOR')")
+    @Operation(summary = "Crear nuevo libro")
+    public ResponseEntity<Libro> createLibro(@RequestBody Libro libro) {
+        return ResponseEntity.ok(libroService.save(libro));
     }
-
+    
     @PutMapping("/libros/{id}")
-    public ResponseEntity<Libro> actualizarLibro(@PathVariable String id, @RequestBody Libro libro) {
-        return libroRepository.findById(id)
-            .map(libroExistente -> {
-                libro.setId(id);
-                Libro actualizado = libroRepository.save(libro);
-                return ResponseEntity.ok(actualizado);
-            })
-            .orElse(ResponseEntity.notFound().build());
+    @PreAuthorize("hasAnyRole('ADMIN', 'PROFESOR')")
+    @Operation(summary = "Actualizar libro")
+    public ResponseEntity<Libro> updateLibro(@PathVariable Long id, @RequestBody Libro libro) {
+        return ResponseEntity.ok(libroService.update(id, libro));
     }
-
+    
     @DeleteMapping("/libros/{id}")
-    public ResponseEntity<Void> eliminarLibro(@PathVariable String id) {
-        libroRepository.deleteById(id);
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Eliminar libro")
+    public ResponseEntity<?> deleteLibro(@PathVariable Long id) {
+        libroService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
-    // ========== PEDIDOS ==========
+    // ============ PEDIDOS - CRUD COMPLETO ============
+    
+    @GetMapping("/pedidos")
+    @Operation(summary = "Listar todos los pedidos")
+    public ResponseEntity<List<Pedido>> getAllPedidos() {
+        return ResponseEntity.ok(pedidoService.findAll());
+    }
+    
+    @GetMapping("/pedidos/{id}")
+    @Operation(summary = "Obtener pedido por ID")
+    public ResponseEntity<?> getPedidoById(@PathVariable Long id) {
+        return pedidoService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
     @PostMapping("/pedidos")
-    public ResponseEntity<Pedido> crearPedido(@RequestBody Pedido pedido) {
-        // Actualizar stock de libros
-        for (Pedido.ItemPedido item : pedido.getItems()) {
-            Optional<Libro> libroOpt = libroRepository.findById(item.getLibroId());
-            if (libroOpt.isPresent()) {
-                Libro libro = libroOpt.get();
-                int nuevoStock = libro.getStock() - item.getCantidad();
-                libro.setStock(nuevoStock);
-                libro.setDisponible(nuevoStock > 0);
-                libroRepository.save(libro);
-            }
-        }
-        
-        Pedido pedidoGuardado = pedidoRepository.save(pedido);
-        return ResponseEntity.ok(pedidoGuardado);
-    }
-
-    @GetMapping("/pedidos")
-    public ResponseEntity<List<Pedido>> getAllPedidos() {
-        List<Pedido> pedidos = pedidoRepository.findAll();
-        return ResponseEntity.ok(pedidos);
-    }
-
-    @GetMapping("/pedidos/{id}")
-    public ResponseEntity<Pedido> getPedidoById(@PathVariable String id) {
-        return pedidoRepository.findById(id)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
+    @PreAuthorize("hasAnyRole('ESTUDIANTE', 'PROFESOR', 'ADMIN')")
+    @Operation(summary = "Crear nuevo pedido")
+    public ResponseEntity<Pedido> createPedido(@RequestBody Pedido pedido) {
+        return ResponseEntity.ok(pedidoService.save(pedido));
     }
 
     @GetMapping("/pedidos/usuario/{usuarioId}")
-    public ResponseEntity<List<Pedido>> getPedidosByUsuario(@PathVariable String usuarioId) {
-        List<Pedido> pedidos = pedidoRepository.findByUsuarioId(usuarioId);
-        return ResponseEntity.ok(pedidos);
+    @Operation(summary = "Listar pedidos por usuario")
+    public ResponseEntity<List<Pedido>> getPedidosByUsuario(@PathVariable Long usuarioId) {
+        return ResponseEntity.ok(pedidoService.findByUsuarioId(usuarioId));
     }
-
-    @GetMapping("/pedidos/estado/{estado}")
-    public ResponseEntity<List<Pedido>> getPedidosByEstado(@PathVariable String estado) {
-        List<Pedido> pedidos = pedidoRepository.findByEstado(estado);
-        return ResponseEntity.ok(pedidos);
+    
+    @PutMapping("/pedidos/{id}")
+    @Operation(summary = "Actualizar pedido")
+    public ResponseEntity<Pedido> updatePedido(@PathVariable Long id, @RequestBody Pedido pedido) {
+        return ResponseEntity.ok(pedidoService.update(id, pedido));
     }
-
-    @PutMapping("/pedidos/{id}/estado")
-    public ResponseEntity<Pedido> actualizarEstadoPedido(@PathVariable String id, @RequestParam String estado) {
-        return pedidoRepository.findById(id)
-            .map(pedido -> {
-                pedido.setEstado(estado);
-                Pedido actualizado = pedidoRepository.save(pedido);
-                return ResponseEntity.ok(actualizado);
-            })
-            .orElse(ResponseEntity.notFound().build());
-    }
-
+    
     @DeleteMapping("/pedidos/{id}")
-    public ResponseEntity<Void> eliminarPedido(@PathVariable String id) {
-        pedidoRepository.deleteById(id);
+    @Operation(summary = "Eliminar pedido")
+    public ResponseEntity<?> deletePedido(@PathVariable Long id) {
+        pedidoService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 }

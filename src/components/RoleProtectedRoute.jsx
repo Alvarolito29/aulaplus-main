@@ -1,26 +1,36 @@
 import { Navigate } from 'react-router-dom';
+import AuthService from '../services/AuthService';
 
 /**
  * Componente que protege rutas según el rol del usuario
  * Si el usuario no tiene el rol requerido, redirige a la página de inicio
  */
 function RoleProtectedRoute({ children, allowedRoles }) {
-    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    const isAuthenticated = AuthService.isAuthenticated();
+    const user = AuthService.getCurrentUser();
     
     // Si no hay usuario, redirigir al login
-    if (!user) {
+    if (!isAuthenticated || !user) {
         return <Navigate to="/login" replace />;
     }
     
     // Si se especifican roles permitidos, verificar que el usuario tenga uno de esos roles
     if (allowedRoles && allowedRoles.length > 0) {
-        const userRole = user.rol?.toLowerCase();
-        const hasPermission = allowedRoles.some(role => role.toLowerCase() === userRole);
+        const hasPermission = allowedRoles.includes(user.rol);
         
         if (!hasPermission) {
             // Usuario no tiene permiso, mostrar mensaje y redirigir
-            alert(`Acceso denegado. Esta sección es solo para: ${allowedRoles.join(', ')}`);
-            return <Navigate to="/" replace />;
+            return (
+                <div style={{ padding: '50px', textAlign: 'center' }}>
+                    <h2>🚫 Acceso Denegado</h2>
+                    <p>No tienes permisos para acceder a esta página.</p>
+                    <p>Roles permitidos: {allowedRoles.join(', ')}</p>
+                    <p>Tu rol: {user.rol}</p>
+                    <a href="/" style={{ color: '#007bff', textDecoration: 'none' }}>
+                        Volver al inicio
+                    </a>
+                </div>
+            );
         }
     }
     
