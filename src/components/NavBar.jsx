@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import AuthService from "../services/AuthService";
 
@@ -12,8 +12,6 @@ export default function NavBar() {
   const [institucionOpen, setInstitucionOpen] = useState(false);
   const [accesoOpen, setAccesoOpen] = useState(false);
   const [contactoOpen, setContactoOpen] = useState(false);
-  
-  const navigate = useNavigate();
 
   // Función para verificar usuario logueado
   const checkUser = () => {

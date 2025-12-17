@@ -251,11 +251,11 @@ export default function Estudiantes() {
 
   // LocalStorage
   const [notes] = useState(() => JSON.parse(localStorage.getItem("notes") || "{}"));
-  const [favCourses, setFavCourses] = useState(() => JSON.parse(localStorage.getItem("favCourses") || "[]"));
+  const [favCourses] = useState(() => JSON.parse(localStorage.getItem("favCourses") || "[]"));
 
   const [q] = useState("");
   const [activeView, setActiveView] = useState("activities"); // activities | courses | course | calendar | messages
-  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [selectedCourse] = useState(null);
   const [completedActivities] = useState(() => JSON.parse(localStorage.getItem('completedActivities')||'[]'));
   const [showMoreActivities, setShowMoreActivities] = useState(false);
   const [dismissedAnnouncements, setDismissedAnnouncements] = useState(() => JSON.parse(localStorage.getItem('dismissedAnnouncements') || '[]'));
@@ -347,14 +347,6 @@ export default function Estudiantes() {
   function abrirRespuesta(profesor, asignatura, mensajeOriginal) {
     setMensajeAResponder({ profesor, asignatura, mensajeOriginal });
     setShowRespuestaModal(true);
-  }
-
-  function toggleFav(courseId) {
-    setFavCourses(prev =>
-      prev.includes(courseId)
-        ? prev.filter(id => id !== courseId)
-        : [...prev, courseId]
-    );
   }
 
   // updateNote eliminado (no usado)

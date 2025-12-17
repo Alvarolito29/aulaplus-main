@@ -87,7 +87,6 @@ const CalendarioPruebas = ({ events = [] }) => {
   const year = new Date().getFullYear();
   
   const { diasMes, primerDiaSemana } = useMemo(() => {
-    const primerDia = new Date(year, monthIdx, 1);
     const ultimoDia = new Date(year, monthIdx + 1, 0);
     const days = [];
     

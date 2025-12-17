@@ -22,7 +22,26 @@ const Biblioteca = () => {
       setTimeout(() => navigate('/login'), 2000);
       return;
     }
-    
+
+    const cargarLibros = async () => {
+      const userData = JSON.parse(localStorage.getItem('user'));
+      if (!userData) {
+        return;
+      }
+      try {
+        const response = await fetch('https://aulaplus-main-1.onrender.com/api/biblioteca/libros');
+        if (!response.ok) {
+          throw new Error('Error al cargar libros');
+        }
+        const data = await response.json();
+        setLibros(data);
+        setLibrosFiltrados(data);
+      } catch (error) {
+        console.error('Error al cargar libros:', error);
+        mostrarMensaje('danger', 'Error al cargar la biblioteca. Verifica que el servidor esté funcionando.');
+      }
+    };
+
     cargarLibros();
     // Cargar carrito del localStorage
     const carritoGuardado = localStorage.getItem('carrito');
@@ -32,38 +51,8 @@ const Biblioteca = () => {
   }, [navigate]);
 
   useEffect(() => {
-    filtrarLibros();
-  }, [libros, busqueda, categoriaFiltro]);
-
-  useEffect(() => {
-    // Guardar carrito en localStorage
-    localStorage.setItem('carrito', JSON.stringify(carrito));
-  }, [carrito]);
-
-  const cargarLibros = async () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (!user) {
-      return;
-    }
-    
-    try {
-      const response = await fetch('https://aulaplus-main-1.onrender.com/api/biblioteca/libros');
-      if (!response.ok) {
-        throw new Error('Error al cargar libros');
-      }
-      const data = await response.json();
-      setLibros(data);
-      setLibrosFiltrados(data);
-    } catch (error) {
-      console.error('Error al cargar libros:', error);
-      mostrarMensaje('danger', 'Error al cargar la biblioteca. Verifica que el servidor esté funcionando.');
-    }
-  };
-
-  const filtrarLibros = () => {
     let resultado = [...libros];
 
-    // Filtrar por búsqueda
     if (busqueda) {
       resultado = resultado.filter(libro =>
         libro.titulo.toLowerCase().includes(busqueda.toLowerCase()) ||
@@ -71,13 +60,17 @@ const Biblioteca = () => {
       );
     }
 
-    // Filtrar por categoría
     if (categoriaFiltro !== 'Todas') {
       resultado = resultado.filter(libro => libro.categoria === categoriaFiltro);
     }
 
     setLibrosFiltrados(resultado);
-  };
+  }, [libros, busqueda, categoriaFiltro]);
+
+  useEffect(() => {
+    // Guardar carrito en localStorage
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+  }, [carrito]);
 
   const agregarAlCarrito = (libro) => {
     const libroEnCarrito = carrito.find(item => item.id === libro.id);
@@ -121,28 +114,6 @@ const Biblioteca = () => {
         ? { ...item, cantidad: nuevaCantidad }
         : item
     ));
-  };
-
-  const calcularTotal = () => {
-    return carrito.reduce((total, item) => total + (item.precio * item.cantidad), 0);
-  };
-
-  const abrirModalPedido = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    
-    if (!user) {
-      mostrarMensaje('warning', 'Debes iniciar sesión para hacer un pedido');
-      setTimeout(() => navigate('/login'), 2000);
-      return;
-    }
-
-    if (carrito.length === 0) {
-      mostrarMensaje('warning', 'El carrito está vacío');
-      return;
-    }
-
-    setDatosAlumno({ rut: '', nombre: user.nombre || '' });
-    setMostrarModal(true);
   };
 
   const finalizarPedido = async () => {

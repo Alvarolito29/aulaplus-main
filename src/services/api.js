@@ -8,12 +8,6 @@ const getHeaders = () => {
   return AuthService.getAuthHeaders();
 };
 
-// Obtener ID del usuario logueado
-const getUserId = () => {
-  const user = AuthService.getCurrentUser();
-  return user ? user.id : null;
-};
-
 // ============ ESTUDIANTES ============
 export const estudiantesService = {
   async getAll() {
@@ -414,7 +408,7 @@ export const demoService = {
   }
 };
 
-export default {
+const api = {
   estudiantes: estudiantesService,
   profesores: profesoresService,
   cursos: cursosService,
@@ -424,3 +418,5 @@ export default {
   usuarios: usuariosService,
   demo: demoService
 };
+
+export default api;

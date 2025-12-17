@@ -44,7 +44,7 @@ function Contact() {
                     }),
                 });
 
-                const result = await response.json();
+                await response.json();
 
                 if (response.ok) {
                     setMsg(`¡Mensaje enviado exitosamente para "${selectedService}"! Nos pondremos en contacto pronto.`);
