@@ -4,37 +4,6 @@
 
 ---
 
-## 📋 **RESUMEN DE CUMPLIMIENTO DE RÚBRICA (100%)**
-
-### **✅ IMPLEMENTACIÓN (56%)**
-
-| ID | Indicador | Pond. | Estado | Evidencia |
-|----|-----------|-------|--------|-----------|
-| **IE1.1.1** | HTML + CSS actual | 4% | ✅ | HTML5 semántico, CSS Grid/Flexbox, variables CSS, animaciones |
-| **IE1.2.1** | Validación formularios JS | 4% | ✅ | Validación regex, tiempo real, feedback visual, autocomplete |
-| **IE2.1.1** | Frontend JS responsivo | 6% | ✅ | React 19, Bootstrap, @media queries, diseño móvil/PC |
-| **IE2.3.1** | Pruebas unitarias frontend | 5% | ✅ | Jest + React Testing Library (4 archivos test) |
-| **IE3.1.1** | Backend + BD | 6% | ✅ | Spring Boot 3.2.3, H2, 8 controllers, CRUD completo |
-| **IE3.2.1** | Integración REST | 6% | ✅ | API REST con GET/POST/PUT/DELETE, 42 endpoints |
-| **IE3.3.1** | Autenticación segura | 4% | ✅ | JWT (HS256), roles (ESTUDIANTE, PROFESOR, APODERADO), rutas protegidas |
-
-### **✅ EXPLICACIÓN/DOCUMENTACIÓN (44%)**
-
-| ID | Indicador | Pond. | Estado | Evidencia |
-|----|-----------|-------|--------|-----------|
-| **IE1.1.2** | Explicación HTML+CSS | 5% | ✅ | Documento detallado en README |
-| **IE1.2.2** | Explicación validación JS | 5% | ✅ | Documento detallado en README |
-| **IE1.3.2** | Repositorio colaborativo | 7% | ✅ | Commits, branches, colaboración en GitHub |
-| **IE2.1.2** | Argumentación JS responsivo | 9% | ✅ | Documento justificando decisiones de diseño |
-| **IE2.3.2** | Explicación testeo | 7% | ✅ | Documento explicando estrategia de pruebas |
-| **IE3.1.2** | Exposición backend + BD | 10% | ✅ | Swagger UI, H2 Console, endpoints documentados |
-| **IE3.2.2** | Argumentación REST | 9% | ✅ | Documento explicando arquitectura REST |
-| **IE3.3.2** | Muestra autenticación | 8% | ✅ | Sistema funcionando con login, protección de rutas |
-
-**TOTAL: 100% ✅**
-
----
-
 ## 🚀 Instalación y Puesta en Marcha
 
 ### **Backend (Spring Boot + H2)**
@@ -1456,20 +1425,8 @@ public class EstudianteController {
 
 ---
 
-## 🏆 **CONCLUSIÓN FINAL**
-
-**AulaPlus** cumple **100% de los indicadores de la rúbrica**:
-- ✅ **56% Implementación**: HTML+CSS, JS responsivo, pruebas unitarias, backend+BD, REST, autenticación
-- ✅ **44% Documentación**: Explicaciones HTML/CSS, validación JS, testeo, arquitectura REST, seguridad
-
-**Tecnologías**: React 19, Spring Boot 3.2.3, H2, JWT, Bootstrap, Jest, Swagger
-**Arquitectura**: SPA frontend + API REST backend + Base de datos in-memory
-**Seguridad**: JWT stateless, roles, contraseñas hasheadas, CORS, @PreAuthorize
-**Testing**: 32 tests con Jest + React Testing Library
-
----
-
 ## 📦 Comandos Útiles
+  {
   "react": "^19.2.0",
   "react-bootstrap": "^2.10.10",
   "react-router-dom": "^7.9.4",
